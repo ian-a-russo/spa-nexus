@@ -31,16 +31,13 @@ body {
   border-radius: 999px;
 }
 
-/* ---------- Cyberpunk backdrop ---------- */
-
 .app-shell {
   position: relative;
   isolation: isolate;
   background:
     radial-gradient(circle at 12% 8%, rgba(255, 46, 196, 0.18), transparent 42%),
     radial-gradient(circle at 88% 0%, rgba(5, 217, 232, 0.16), transparent 40%),
-    radial-gradient(circle at 50% 105%, rgba(176, 38, 255, 0.16), transparent 55%),
-    #050014;
+    radial-gradient(circle at 50% 105%, rgba(176, 38, 255, 0.16), transparent 55%), #050014;
   overflow: hidden;
 }
 
@@ -91,8 +88,6 @@ body {
   }
 }
 
-/* ---------- Glass surfaces ---------- */
-
 .glass {
   background: rgba(13, 6, 32, 0.55);
   backdrop-filter: blur(20px) saturate(160%);
@@ -125,8 +120,6 @@ body {
     background-position: 100% 50%;
   }
 }
-
-/* ---------- Glitch title ---------- */
 
 .glitch {
   position: relative;
@@ -181,8 +174,6 @@ body {
     opacity: 0.6;
   }
 }
-
-/* ---------- Presence + status ---------- */
 
 .presence-dot {
   width: 10px;
@@ -241,8 +232,6 @@ body {
   }
 }
 
-/* ---------- Transitions ---------- */
-
 .message-list-enter-active {
   transition:
     opacity 0.28s ease,
@@ -262,8 +251,6 @@ body {
   opacity: 0;
   transform: translateX(-12px);
 }
-
-/* ---------- Hover + neon interactions ---------- */
 
 .hover-lift {
   transition:

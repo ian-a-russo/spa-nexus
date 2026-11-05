@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { http } from '../../services/http';
+import { searchUsers } from '../../services/users';
 import { useInvitesStore } from '../../stores/invites.store';
 import type { UserSummary } from '../../types/models';
 import UserAvatar from './UserAvatar.vue';
@@ -30,8 +30,7 @@ watch(query, (value) => {
 async function runSearch(): Promise<void> {
   loading.value = true;
   try {
-    const { data } = await http.get<UserSummary[]>('/users/search', { params: { q: query.value } });
-    results.value = data;
+    results.value = await searchUsers(query.value);
   } finally {
     loading.value = false;
   }

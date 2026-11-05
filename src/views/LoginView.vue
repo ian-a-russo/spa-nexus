@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth.store';
+import { apiErrorMessage } from '../utils/api-error';
 
 const router = useRouter();
 const auth = useAuthStore();
@@ -17,8 +18,8 @@ async function submit(): Promise<void> {
   try {
     await auth.login(username.value, password.value);
     await router.push({ name: 'chat' });
-  } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Não foi possível entrar.';
+  } catch (error) {
+    errorMessage.value = apiErrorMessage(error, 'Não foi possível entrar.');
   } finally {
     loading.value = false;
   }
@@ -69,7 +70,9 @@ async function submit(): Promise<void> {
 
       <div class="text-center mt-8 text-body-2">
         Ainda não tem conta?
-        <router-link to="/register" class="text-secondary font-weight-medium">Criar conta</router-link>
+        <router-link to="/register" class="text-secondary font-weight-medium"
+          >Criar conta</router-link
+        >
       </div>
     </v-card>
   </div>

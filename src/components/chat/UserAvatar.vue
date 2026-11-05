@@ -23,7 +23,11 @@ const initials = computed(() => initialsFor(props.displayName));
     <div v-else class="user-avatar__circle" :style="{ background }">
       {{ initials }}
     </div>
-    <span v-if="online !== undefined" class="user-avatar__status" :class="{ 'is-online': online }" />
+    <span
+      v-if="online !== undefined"
+      class="user-avatar__status"
+      :class="{ 'is-online': online }"
+    />
   </div>
 </template>
 

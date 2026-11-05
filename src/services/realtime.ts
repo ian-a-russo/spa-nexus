@@ -36,13 +36,19 @@ export function bindRealtimeEvents(): void {
     chat.notify('Seu convite foi recusado.');
   });
 
-  socket.on('typing:start', ({ conversationId, userId }: { conversationId: string; userId: string }) => {
-    chat.setUserTyping(conversationId, userId);
-  });
+  socket.on(
+    'typing:start',
+    ({ conversationId, userId }: { conversationId: string; userId: string }) => {
+      chat.setUserTyping(conversationId, userId);
+    },
+  );
 
-  socket.on('typing:stop', ({ conversationId, userId }: { conversationId: string; userId: string }) => {
-    chat.clearTyping(conversationId, userId);
-  });
+  socket.on(
+    'typing:stop',
+    ({ conversationId, userId }: { conversationId: string; userId: string }) => {
+      chat.clearTyping(conversationId, userId);
+    },
+  );
 
   socket.on('presence:online', ({ userId }: { userId: string }) => {
     chat.setPresence(userId, true);

@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { uploadMedia } from '../../services/uploads';
 import { useChatStore } from '../../stores/chat.store';
 import type { MessageAttachment } from '../../types/models';
+import { apiErrorMessage } from '../../utils/api-error';
 
 const chat = useChatStore();
 const text = ref('');
@@ -44,8 +45,8 @@ async function handleFileChange(event: Event): Promise<void> {
   uploadingAttachment.value = true;
   try {
     pendingAttachment.value = await uploadMedia(file);
-  } catch (error: any) {
-    attachmentError.value = error?.response?.data?.message ?? 'Falha ao enviar arquivo.';
+  } catch (error) {
+    attachmentError.value = apiErrorMessage(error, 'Falha ao enviar arquivo.');
     clearAttachment();
   } finally {
     uploadingAttachment.value = false;
@@ -83,10 +84,27 @@ function send(): void {
 <template>
   <div class="message-input pa-4">
     <div v-if="pendingPreviewUrl" class="attachment-preview mb-3">
-      <img v-if="pendingAttachment?.type !== 'VIDEO'" :src="pendingPreviewUrl" class="attachment-preview__thumb" />
+      <img
+        v-if="pendingAttachment?.type !== 'VIDEO'"
+        :src="pendingPreviewUrl"
+        class="attachment-preview__thumb"
+      />
       <video v-else :src="pendingPreviewUrl" class="attachment-preview__thumb" muted />
-      <v-progress-circular v-if="uploadingAttachment" indeterminate size="20" color="secondary" class="mx-2" />
-      <v-btn v-else icon="mdi-close" size="x-small" variant="text" class="mx-1" @click="clearAttachment" />
+      <v-progress-circular
+        v-if="uploadingAttachment"
+        indeterminate
+        size="20"
+        color="secondary"
+        class="mx-2"
+      />
+      <v-btn
+        v-else
+        icon="mdi-close"
+        size="x-small"
+        variant="text"
+        class="mx-1"
+        @click="clearAttachment"
+      />
       <span class="text-caption text-medium-emphasis">
         {{ uploadingAttachment ? 'enviando…' : 'pronto para enviar' }}
       </span>
@@ -98,7 +116,13 @@ function send(): void {
 
     <div class="d-flex align-center ga-3">
       <v-btn icon="mdi-paperclip" variant="text" color="secondary" @click="pickAttachment" />
-      <input ref="fileInput" type="file" accept="image/*,video/*" class="d-none" @change="handleFileChange" />
+      <input
+        ref="fileInput"
+        type="file"
+        accept="image/*,video/*"
+        class="d-none"
+        @change="handleFileChange"
+      />
 
       <v-text-field
         v-model="text"

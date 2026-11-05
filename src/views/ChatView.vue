@@ -43,9 +43,15 @@ function logout(): void {
 
 <template>
   <div class="chat-layout app-shell">
-    <aside v-if="showSidebar" class="chat-sidebar glass" :class="{ 'chat-sidebar--full': isMobile }">
+    <aside
+      v-if="showSidebar"
+      class="chat-sidebar glass"
+      :class="{ 'chat-sidebar--full': isMobile }"
+    >
       <div class="brand-bar px-4 px-sm-5 pt-4 pb-2">
-        <span class="brand-title text-subtitle-2 gradient-text" data-text="NEXUS://CHAT">NEXUS://CHAT</span>
+        <span class="brand-title text-subtitle-2 gradient-text" data-text="NEXUS://CHAT"
+          >NEXUS://CHAT</span
+        >
       </div>
 
       <div class="sidebar-header px-4 px-sm-5 pb-4 pt-2 d-flex align-center ga-3 ga-sm-4">
@@ -62,11 +68,20 @@ function logout(): void {
           <div class="text-caption text-medium-emphasis">@{{ auth.user?.username }}</div>
         </div>
         <v-btn icon variant="text" @click="showInvites = true">
-          <v-badge :content="invites.pending.length" :model-value="invites.pending.length > 0" color="error">
+          <v-badge
+            :content="invites.pending.length"
+            :model-value="invites.pending.length > 0"
+            color="error"
+          >
             <v-icon icon="mdi-bell-outline" />
           </v-badge>
         </v-btn>
-        <v-btn icon="mdi-account-plus-outline" variant="text" color="secondary" @click="showSearch = true" />
+        <v-btn
+          icon="mdi-account-plus-outline"
+          variant="text"
+          color="secondary"
+          @click="showSearch = true"
+        />
         <v-btn icon="mdi-logout" variant="text" @click="logout" />
       </div>
       <v-divider />
@@ -90,7 +105,9 @@ function logout(): void {
             :online="chat.isOnline(chat.activeConversation.participant.id)"
           />
           <div class="text-truncate">
-            <div class="font-weight-medium text-truncate">{{ chat.activeConversation.participant.displayName }}</div>
+            <div class="font-weight-medium text-truncate">
+              {{ chat.activeConversation.participant.displayName }}
+            </div>
             <div class="text-caption text-medium-emphasis">
               {{ chat.isOnline(chat.activeConversation.participant.id) ? 'online' : 'offline' }}
             </div>

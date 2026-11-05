@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { uploadAvatar } from '../../services/uploads';
 import { useAuthStore } from '../../stores/auth.store';
 import UserAvatar from './UserAvatar.vue';
+import { apiErrorMessage } from '../../utils/api-error';
 
 const props = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits<{ 'update:modelValue': [boolean] }>();
@@ -27,8 +28,8 @@ async function handleFileChange(event: Event): Promise<void> {
   try {
     const user = await uploadAvatar(file);
     auth.updateUser(user);
-  } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Não foi possível enviar a foto.';
+  } catch (error) {
+    errorMessage.value = apiErrorMessage(error, 'Não foi possível enviar a foto.');
   } finally {
     uploading.value = false;
     input.value = '';
@@ -64,7 +65,13 @@ function close(): void {
             <v-icon v-else icon="mdi-camera-outline" size="28" />
           </div>
         </div>
-        <input ref="fileInput" type="file" accept="image/*" class="d-none" @change="handleFileChange" />
+        <input
+          ref="fileInput"
+          type="file"
+          accept="image/*"
+          class="d-none"
+          @change="handleFileChange"
+        />
 
         <div>
           <div class="text-h6">{{ auth.user?.displayName }}</div>

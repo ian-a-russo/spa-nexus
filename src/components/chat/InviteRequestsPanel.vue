@@ -28,10 +28,17 @@ async function reject(inviteId: string): Promise<void> {
     @update:model-value="emit('update:modelValue', $event)"
   >
     <v-card class="glass neon-border pa-2">
-      <v-card-title class="pa-4 pb-2"><span class="brand-title">Convites recebidos</span></v-card-title>
+      <v-card-title class="pa-4 pb-2"
+        ><span class="brand-title">Convites recebidos</span></v-card-title
+      >
       <v-card-text class="pa-4 pt-2">
         <v-list bg-color="transparent">
-          <v-list-item v-for="invite in invites.pending" :key="invite.id" class="mb-2 py-2" rounded="lg">
+          <v-list-item
+            v-for="invite in invites.pending"
+            :key="invite.id"
+            class="mb-2 py-2"
+            rounded="lg"
+          >
             <template #prepend>
               <UserAvatar
                 :username="invite.sender.username"
@@ -45,14 +52,23 @@ async function reject(inviteId: string): Promise<void> {
             <v-list-item-subtitle>@{{ invite.sender.username }}</v-list-item-subtitle>
             <template #append>
               <div class="d-flex ga-2">
-                <v-btn icon="mdi-check" size="small" color="primary" variant="flat" @click="accept(invite.id)" />
+                <v-btn
+                  icon="mdi-check"
+                  size="small"
+                  color="primary"
+                  variant="flat"
+                  @click="accept(invite.id)"
+                />
                 <v-btn icon="mdi-close" size="small" variant="tonal" @click="reject(invite.id)" />
               </div>
             </template>
           </v-list-item>
         </v-list>
 
-        <div v-if="invites.pending.length === 0" class="text-center text-medium-emphasis pa-6 text-body-2">
+        <div
+          v-if="invites.pending.length === 0"
+          class="text-center text-medium-emphasis pa-6 text-body-2"
+        >
           Nenhum convite pendente.
         </div>
       </v-card-text>

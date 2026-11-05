@@ -46,7 +46,9 @@ function previewLabel(lastMessage: LastMessagePreview): string {
           <span v-if="chat.typingByConversation[conversation.id]?.length" class="text-secondary">
             digitando…
           </span>
-          <span v-else-if="conversation.lastMessage">{{ previewLabel(conversation.lastMessage) }}</span>
+          <span v-else-if="conversation.lastMessage">{{
+            previewLabel(conversation.lastMessage)
+          }}</span>
           <span v-else class="text-medium-emphasis">Diga oi 👋</span>
         </v-list-item-subtitle>
 
@@ -58,7 +60,10 @@ function previewLabel(lastMessage: LastMessagePreview): string {
       </v-list-item>
     </transition-group>
 
-    <div v-if="chat.conversations.length === 0" class="text-center text-medium-emphasis pa-6 text-body-2">
+    <div
+      v-if="chat.conversations.length === 0"
+      class="text-center text-medium-emphasis pa-6 text-body-2"
+    >
       Nenhuma conversa ainda.<br />
       Busque um @usuário para começar.
     </div>

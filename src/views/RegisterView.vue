@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth.store';
+import { apiErrorMessage } from '../utils/api-error';
 
 const router = useRouter();
 const auth = useAuthStore();
@@ -18,8 +19,8 @@ async function submit(): Promise<void> {
   try {
     await auth.register(username.value, displayName.value, password.value);
     await router.push({ name: 'chat' });
-  } catch (error: any) {
-    errorMessage.value = error?.response?.data?.message ?? 'Não foi possível criar sua conta.';
+  } catch (error) {
+    errorMessage.value = apiErrorMessage(error, 'Não foi possível criar sua conta.');
   } finally {
     loading.value = false;
   }
@@ -60,7 +61,13 @@ async function submit(): Promise<void> {
           hint="Mínimo 6 caracteres"
         />
 
-        <v-alert v-if="errorMessage" type="error" variant="tonal" density="compact" class="mb-2 mt-2">
+        <v-alert
+          v-if="errorMessage"
+          type="error"
+          variant="tonal"
+          density="compact"
+          class="mb-2 mt-2"
+        >
           {{ errorMessage }}
         </v-alert>
 

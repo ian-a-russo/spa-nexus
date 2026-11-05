@@ -17,11 +17,11 @@ function loadStoredAuth(): StoredAuth | null {
 }
 
 function persistAuth(auth: StoredAuth | null): void {
-  if (auth) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(auth));
-  } else {
+  if (!auth) {
     localStorage.removeItem(STORAGE_KEY);
+    return;
   }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(auth));
 }
 
 export const useAuthStore = defineStore('auth', {

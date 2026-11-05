@@ -24,7 +24,9 @@ export const useChatStore = defineStore('chat', {
 
   getters: {
     activeMessages: (state): Message[] =>
-      state.activeConversationId ? (state.messagesByConversation[state.activeConversationId] ?? []) : [],
+      state.activeConversationId
+        ? (state.messagesByConversation[state.activeConversationId] ?? [])
+        : [],
 
     activeConversation: (state): ConversationSummary | undefined =>
       state.conversations.find((c) => c.id === state.activeConversationId),
@@ -34,7 +36,10 @@ export const useChatStore = defineStore('chat', {
         ? (state.typingByConversation[state.activeConversationId]?.length ?? 0) > 0
         : false,
 
-    isOnline: (state) => (userId: string): boolean => state.onlineUserIds.includes(userId),
+    isOnline:
+      (state) =>
+      (userId: string): boolean =>
+        state.onlineUserIds.includes(userId),
   },
 
   actions: {
@@ -91,7 +96,9 @@ export const useChatStore = defineStore('chat', {
     },
 
     clearTyping(conversationId: string, userId: string): void {
-      const typing = (this.typingByConversation[conversationId] ?? []).filter((id) => id !== userId);
+      const typing = (this.typingByConversation[conversationId] ?? []).filter(
+        (id) => id !== userId,
+      );
       this.typingByConversation[conversationId] = typing;
     },
 
